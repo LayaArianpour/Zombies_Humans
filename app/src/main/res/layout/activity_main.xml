@@ -1,18 +1,270 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@drawable/n1">
 
-    <TextView
+    <RelativeLayout
+        android:id="@+id/container_zombieLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="160dp"
+        android:layout_marginLeft="100dp">
+        <ImageView
+            android:id="@+id/img_zombie1Left"
+            android:layout_width="50dp"
+            android:layout_height="100dp"
+            android:scaleType="fitXY"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/z1" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/img_zombie2Left"
+            android:layout_width="50dp"
+            android:layout_height="100dp"
+            android:scaleType="fitXY"
+            android:layout_toRightOf="@id/img_zombie1Left"
+            android:src="@drawable/z1" />
+        <ImageView
+            android:id="@+id/img_zombie3Left"
+            android:layout_width="50dp"
+            android:layout_height="100dp"
+            android:scaleType="fitXY"
+            android:layout_toRightOf="@id/img_zombie2Left"
+            android:src="@drawable/z1" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/container_humanLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="230dp"
+        android:layout_marginLeft="20dp">
+        <ImageView
+            android:id="@+id/img_human1Left"
+            android:layout_width="50dp"
+            android:layout_height="100dp"
+            android:scaleType="fitXY"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/h1" />
+        <ImageView
+            android:id="@+id/img_human2Left"
+            android:layout_width="50dp"
+            android:layout_height="100dp"
+            android:scaleType="fitXY"
+            android:layout_toRightOf="@id/img_human1Left"
+            android:src="@drawable/h2" />
+        <ImageView
+            android:id="@+id/img_human3Left"
+            android:layout_width="50dp"
+            android:layout_height="100dp"
+            android:scaleType="fitXY"
+            android:layout_toRightOf="@id/img_human2Left"
+            android:src="@drawable/h3" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/container_zombieRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:layout_marginRight="160dp"
+        android:layout_alignParentRight="true"
+        android:visibility="visible">
+        <ImageView
+            android:id="@+id/img_zombie1Right"
+            android:layout_width="50dp"
+            android:layout_height="100dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/z1"
+            android:visibility="invisible"/>
+
+        <ImageView
+            android:id="@+id/img_zombie2Right"
+            android:layout_width="50dp"
+            android:layout_height="100dp"
+            android:scaleType="fitXY"
+            android:layout_toRightOf="@id/img_zombie1Right"
+            android:src="@drawable/z1"
+            android:visibility="invisible"/>
+        <ImageView
+            android:id="@+id/img_zombie3Right"
+            android:layout_width="50dp"
+            android:layout_height="100dp"
+            android:scaleType="fitXY"
+            android:layout_toRightOf="@id/img_zombie2Right"
+            android:src="@drawable/z1"
+            android:visibility="invisible"/>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/container_humanRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:layout_marginRight="40dp"
+        android:layout_alignParentRight="true"
+        android:visibility="visible">
+        <ImageView
+            android:id="@+id/img_human1Right"
+            android:layout_width="50dp"
+            android:layout_height="100dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/h1"
+            android:visibility="invisible"/>
+        <ImageView
+            android:id="@+id/img_human2Right"
+            android:layout_width="50dp"
+            android:layout_height="100dp"
+            android:scaleType="fitXY"
+            android:layout_toRightOf="@id/img_human1Right"
+            android:src="@drawable/h2"
+            android:visibility="invisible"/>
+        <ImageView
+            android:id="@+id/img_human3Right"
+            android:layout_width="50dp"
+            android:layout_height="100dp"
+            android:scaleType="fitXY"
+            android:layout_toRightOf="@id/img_human2Right"
+            android:src="@drawable/h3"
+            android:visibility="invisible"/>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/container_boatLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/container_humanLeft"
+        android:layout_marginTop="200dp"
+        android:visibility="visible">
+        <ImageView
+            android:id="@+id/img_boatLeft"
+            android:layout_width="170dp"
+            android:layout_height="100dp"
+            android:src="@drawable/b_go_right"
+            android:layout_marginTop="60dp"/>
+        <ImageView
+            android:id="@+id/img_passenger1Left"
+            android:layout_width="50dp"
+            android:layout_height="100dp"
+            android:scaleType="fitXY"
+            android:layout_marginLeft="25dp"
+            android:visibility="invisible"/>
+
+        <ImageView
+            android:id="@+id/img_passenger2Left"
+            android:layout_width="50dp"
+            android:layout_height="100dp"
+            android:scaleType="fitXY"
+            android:layout_toRightOf="@id/img_passenger1Left"
+            android:visibility="invisible" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/container_boatRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/container_boatLeft"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="200dp"
+        android:visibility="invisible">
+        <ImageView
+            android:id="@+id/img_boatRight"
+            android:layout_width="170dp"
+            android:layout_height="100dp"
+            android:src="@drawable/b_go_right"
+            android:layout_marginTop="60dp"/>
+        <ImageView
+            android:id="@+id/img_passenger1Right"
+            android:layout_width="50dp"
+            android:layout_height="100dp"
+            android:scaleType="fitXY"
+            android:layout_marginLeft="25dp"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/img_passenger2Right"
+            android:layout_width="50dp"
+            android:layout_height="100dp"
+            android:scaleType="fitXY"
+            android:layout_toRightOf="@id/img_passenger1Right"
+            android:visibility="invisible" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_go"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/go"
+        android:visibility="visible"/>
+
+
+
+    <RelativeLayout
+        android:id="@+id/container_gameOver"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_centerInParent="true"
+            android:id="@+id/img_gameOver"
+            android:layout_width="300dp"
+            android:layout_height="120dp"
+            android:scaleType="fitXY"
+            android:background="@drawable/ic_background_game_over"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/game_over"
+            android:layout_marginTop="30dp"/>
+
+        <Button
+            android:id="@+id/btn_playAgain_Gameover"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:layout_below="@id/img_gameOver"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/play_again"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/container_gameWin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/img_gameWin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:layout_centerInParent="true"
+            android:src="@drawable/win" />
+        <Button
+            android:id="@+id/btn_playAgain_win"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:layout_below="@id/img_gameWin"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/play_again"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
