@@ -2,6 +2,7 @@ package com.example.zombies_humans;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,9 +21,9 @@ public class MainActivity extends AppCompatActivity {
     private Button btn_go,btn_playAgain_gameOver,btn_playAgain_win;
     private boolean isHuman=false;
     private boolean boatInLeft=true;
+    private boolean activeGame=true;
     HashMap<Object,Object> existenceOfBoatPassengers=new HashMap<>();
     HashMap<Object,String> nameOfBoatPassengers=new HashMap<>();
-    HashMap<String,Boolean> typeOfBoatPassengers=new HashMap<>();
     HashMap<Object,Boolean> passengers_IsBoarding=new HashMap<>();
     int countOfHumansInLeft=3;
     int countOfHumansInRight=0;
@@ -68,6 +69,21 @@ public class MainActivity extends AppCompatActivity {
         btn_playAgain_gameOver=findViewById(R.id.btn_playAgain_Gameover);
         btn_playAgain_win=findViewById(R.id.btn_playAgain_win);
 
+
+        passengers_IsBoarding.put(img_human1Left,false);
+        passengers_IsBoarding.put(img_human2Left,false);
+        passengers_IsBoarding.put(img_human3Left,false);
+        passengers_IsBoarding.put(img_human1Right,false);
+        passengers_IsBoarding.put(img_human2Right,false);
+        passengers_IsBoarding.put(img_human3Right,false);
+        passengers_IsBoarding.put(img_zombie1Left,false);
+        passengers_IsBoarding.put(img_zombie2Left,false);
+        passengers_IsBoarding.put(img_zombie3Left,false);
+        passengers_IsBoarding.put(img_zombie1Right,false);
+        passengers_IsBoarding.put(img_zombie2Right,false);
+        passengers_IsBoarding.put(img_zombie3Right,false);
+
+
         existenceOfBoatPassengers.put(img_passenger1Left,null);
         existenceOfBoatPassengers.put(img_passenger2Left,null);
         existenceOfBoatPassengers.put(img_passenger1Right,null);
@@ -78,15 +94,14 @@ public class MainActivity extends AppCompatActivity {
         nameOfBoatPassengers.put(img_passenger1Right,null);
         nameOfBoatPassengers.put(img_passenger2Right,null);
 
-        typeOfBoatPassengers.put("passengers1_isHuman",false);
-        typeOfBoatPassengers.put("passengers2_isHuman",false);
-
         img_human1Left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isHuman = true;
-                if (!passengers_IsBoarding.get(img_human1Left)) { //if human not in boat
-                    checkBeforeGettingOnBoat(img_human1Left,img_human1Right,isHuman,"human1",true);
+                if (activeGame) {
+                    isHuman = true;
+                    if (!passengers_IsBoarding.get(img_human1Left)) { //if human not in boat
+                        checkBeforeGettingOnBoat(img_human1Left, img_human1Right, isHuman, "human1", true);
+                    }
                 }
             }
         });
@@ -94,9 +109,11 @@ public class MainActivity extends AppCompatActivity {
         img_human2Left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isHuman = true;
-                if (!passengers_IsBoarding.get(img_human2Left)) { //if human not in boat
-                    checkBeforeGettingOnBoat(img_human2Left,img_human2Right,isHuman,"human2",true);
+                if (activeGame) {
+                    isHuman = true;
+                    if (!passengers_IsBoarding.get(img_human2Left)) { //if human not in boat
+                        checkBeforeGettingOnBoat(img_human2Left, img_human2Right, isHuman, "human2", true);
+                    }
                 }
             }
         });
@@ -104,9 +121,11 @@ public class MainActivity extends AppCompatActivity {
         img_human3Left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isHuman = true;
-                if (!passengers_IsBoarding.get(img_human3Left)) { //if human not in boat
-                    checkBeforeGettingOnBoat(img_human3Left,img_human3Right,isHuman,"human3",true);
+                if (activeGame) {
+                    isHuman = true;
+                    if (!passengers_IsBoarding.get(img_human3Left)) { //if human not in boat
+                        checkBeforeGettingOnBoat(img_human3Left, img_human3Right, isHuman, "human3", true);
+                    }
                 }
             }
         });
@@ -114,9 +133,11 @@ public class MainActivity extends AppCompatActivity {
         img_human1Right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isHuman = true;
-                if (!passengers_IsBoarding.get(img_human1Right)) { //if human not in boat
-                    checkBeforeGettingOnBoat(img_human1Right,img_human1Left,isHuman,"human1",false);
+                if (activeGame) {
+                    isHuman = true;
+                    if (!passengers_IsBoarding.get(img_human1Right)) { //if human not in boat
+                        checkBeforeGettingOnBoat(img_human1Right, img_human1Left, isHuman, "human1", false);
+                    }
                 }
             }
         });
@@ -124,9 +145,11 @@ public class MainActivity extends AppCompatActivity {
         img_human2Right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isHuman = true;
-                if (!passengers_IsBoarding.get(img_human2Right)) { //if human not in boat
-                    checkBeforeGettingOnBoat(img_human2Right,img_human2Left,isHuman,"human2",false);
+                if (activeGame) {
+                    isHuman = true;
+                    if (!passengers_IsBoarding.get(img_human2Right)) { //if human not in boat
+                        checkBeforeGettingOnBoat(img_human2Right, img_human2Left, isHuman, "human2", false);
+                    }
                 }
             }
         });
@@ -134,9 +157,11 @@ public class MainActivity extends AppCompatActivity {
         img_human3Right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isHuman = true;
-                if (!passengers_IsBoarding.get(img_human3Right)) { //if human not in boat
-                    checkBeforeGettingOnBoat(img_human3Right,img_human3Left,isHuman,"human3",false);
+                if (activeGame) {
+                    isHuman = true;
+                    if (!passengers_IsBoarding.get(img_human3Right)) { //if human not in boat
+                        checkBeforeGettingOnBoat(img_human3Right, img_human3Left, isHuman, "human3", false);
+                    }
                 }
             }
         });
@@ -145,9 +170,11 @@ public class MainActivity extends AppCompatActivity {
         img_zombie1Left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isHuman = false;
-                if (!passengers_IsBoarding.get(img_zombie1Left)) { //if human not in boat
-                    checkBeforeGettingOnBoat(img_zombie1Left,img_zombie1Right,isHuman,"zombie1",true);
+                if (activeGame) {
+                    isHuman = false;
+                    if (!passengers_IsBoarding.get(img_zombie1Left)) { //if human not in boat
+                        checkBeforeGettingOnBoat(img_zombie1Left, img_zombie1Right, isHuman, "zombie1", true);
+                    }
                 }
             }
         });
@@ -155,9 +182,11 @@ public class MainActivity extends AppCompatActivity {
         img_zombie2Left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isHuman = false;
-                if (!passengers_IsBoarding.get(img_zombie2Left)) { //if human not in boat
-                    checkBeforeGettingOnBoat(img_zombie2Left,img_zombie2Right,isHuman,"zombie2",true);
+                if (activeGame) {
+                    isHuman = false;
+                    if (!passengers_IsBoarding.get(img_zombie2Left)) { //if human not in boat
+                        checkBeforeGettingOnBoat(img_zombie2Left, img_zombie2Right, isHuman, "zombie2", true);
+                    }
                 }
             }
         });
@@ -165,9 +194,11 @@ public class MainActivity extends AppCompatActivity {
         img_zombie3Left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isHuman = false;
-                if (!passengers_IsBoarding.get(img_zombie3Left)) { //if human not in boat
-                    checkBeforeGettingOnBoat(img_zombie3Left,img_zombie3Right,isHuman,"zombie3",true);
+                if (activeGame) {
+                    isHuman = false;
+                    if (!passengers_IsBoarding.get(img_zombie3Left)) { //if human not in boat
+                        checkBeforeGettingOnBoat(img_zombie3Left, img_zombie3Right, isHuman, "zombie3", true);
+                    }
                 }
             }
         });
@@ -175,9 +206,11 @@ public class MainActivity extends AppCompatActivity {
         img_zombie1Right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isHuman = false;
-                if (!passengers_IsBoarding.get(img_zombie1Right)) { //if human not in boat
-                    checkBeforeGettingOnBoat(img_zombie1Right,img_zombie1Left,isHuman,"zombie1",false);
+                if (activeGame) {
+                    isHuman = false;
+                    if (!passengers_IsBoarding.get(img_zombie1Right)) { //if human not in boat
+                        checkBeforeGettingOnBoat(img_zombie1Right, img_zombie1Left, isHuman, "zombie1", false);
+                    }
                 }
             }
         });
@@ -185,9 +218,11 @@ public class MainActivity extends AppCompatActivity {
         img_zombie2Right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isHuman = false;
-                if (!passengers_IsBoarding.get(img_zombie2Right)) { //if human not in boat
-                    checkBeforeGettingOnBoat(img_zombie2Right,img_zombie2Left,isHuman,"zombie2",false);
+                if (activeGame) {
+                    isHuman = false;
+                    if (!passengers_IsBoarding.get(img_zombie2Right)) { //if human not in boat
+                        checkBeforeGettingOnBoat(img_zombie2Right, img_zombie2Left, isHuman, "zombie2", false);
+                    }
                 }
             }
         });
@@ -195,9 +230,11 @@ public class MainActivity extends AppCompatActivity {
         img_zombie3Right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isHuman = false;
-                if (!passengers_IsBoarding.get(img_zombie3Right)) { //if human not in boat
-                    checkBeforeGettingOnBoat(img_zombie3Right,img_zombie3Left,isHuman,"zombie3",false);
+                if (activeGame) {
+                    isHuman = false;
+                    if (!passengers_IsBoarding.get(img_zombie3Right)) { //if human not in boat
+                        checkBeforeGettingOnBoat(img_zombie3Right, img_zombie3Left, isHuman, "zombie3", false);
+                    }
                 }
             }
         });
@@ -205,28 +242,36 @@ public class MainActivity extends AppCompatActivity {
         img_passenger1Left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getOffBoat(img_passenger1Left, boatInLeft);
+                if (activeGame) {
+                    getOffBoat(img_passenger1Left, boatInLeft);
+                }
             }
         });
 
         img_passenger2Left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getOffBoat(img_passenger2Left, boatInLeft);
+                if (activeGame) {
+                    getOffBoat(img_passenger2Left, boatInLeft);
+                }
             }
         });
 
         img_passenger1Right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getOffBoat(img_passenger1Right, boatInLeft);
+                if (activeGame) {
+                    getOffBoat(img_passenger1Right, boatInLeft);
+                }
             }
         });
 
         img_passenger2Right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getOffBoat(img_passenger2Right, boatInLeft);
+                if (activeGame) {
+                    getOffBoat(img_passenger2Right, boatInLeft);
+                }
             }
         });
 
@@ -234,6 +279,24 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 moveBoat(boatInLeft);
+            }
+        });
+        btn_playAgain_win.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this,StartActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+            }
+        });
+        btn_playAgain_gameOver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this,StartActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
             }
         });
     }
@@ -292,47 +355,62 @@ public class MainActivity extends AppCompatActivity {
 
     private void getOffBoat(ImageView imgPassenger, boolean boatInLeft) {
         ImageView nameOfObjectPassenger= (ImageView) existenceOfBoatPassengers.get(imgPassenger);
+        boolean isObjectHuman=false;
         if(boatInLeft) {
             if (img_zombie1Left.equals(nameOfObjectPassenger)|| img_zombie1Right.equals(nameOfObjectPassenger)) {
                 img_zombie1Left.setVisibility(View.VISIBLE);
                 img_zombie1Right.setVisibility(View.INVISIBLE);
+                isObjectHuman=false;
             } else if (img_zombie2Left.equals(nameOfObjectPassenger)||img_zombie2Right.equals(nameOfObjectPassenger)) {
                 img_zombie2Left.setVisibility(View.VISIBLE);
                 img_zombie2Right.setVisibility(View.INVISIBLE);
+                isObjectHuman=false;
             } else if (img_zombie3Left.equals(nameOfObjectPassenger)||img_zombie3Right.equals(nameOfObjectPassenger)) {
                 img_zombie3Left.setVisibility(View.VISIBLE);
                 img_zombie3Right.setVisibility(View.INVISIBLE);
+                isObjectHuman=false;
             } else if (img_human1Left.equals(nameOfObjectPassenger)||img_human1Right.equals(nameOfObjectPassenger)) {
                 img_human1Left.setVisibility(View.VISIBLE);
                 img_human1Right.setVisibility(View.INVISIBLE);
+                isObjectHuman=true;
             } else if (img_human2Left.equals(nameOfObjectPassenger)||img_human2Right.equals(nameOfObjectPassenger)) {
                 img_human2Left.setVisibility(View.VISIBLE);
                 img_human2Right.setVisibility(View.INVISIBLE);
+                isObjectHuman=true;
             } else if (img_human3Left.equals(nameOfObjectPassenger)||img_human3Right.equals(nameOfObjectPassenger)) {
                 img_human3Left.setVisibility(View.VISIBLE);
                 img_human3Right.setVisibility(View.INVISIBLE);
+                isObjectHuman=true;
             }
+            computingCountOfItems(isObjectHuman,false,true);
 
         }else{
             if (img_zombie1Right.equals(nameOfObjectPassenger)||img_zombie1Left.equals(nameOfObjectPassenger)) {
                 img_zombie1Left.setVisibility(View.INVISIBLE);
                 img_zombie1Right.setVisibility(View.VISIBLE);
+                isObjectHuman=false;
             } else if (img_zombie2Right.equals(nameOfObjectPassenger)||img_zombie2Left.equals(nameOfObjectPassenger)) {
                 img_zombie2Left.setVisibility(View.INVISIBLE);
                 img_zombie2Right.setVisibility(View.VISIBLE);
+                isObjectHuman=false;
             } else if (img_zombie3Right.equals(nameOfObjectPassenger)||img_zombie3Left.equals(nameOfObjectPassenger)) {
                 img_zombie3Left.setVisibility(View.INVISIBLE);
                 img_zombie3Right.setVisibility(View.VISIBLE);
+                isObjectHuman=false;
             } else if (img_human1Right.equals(nameOfObjectPassenger)||img_human1Left.equals(nameOfObjectPassenger)) {
                 img_human1Left.setVisibility(View.INVISIBLE);
                 img_human1Right.setVisibility(View.VISIBLE);
+                isObjectHuman=true;
             } else if (img_human2Right.equals(nameOfObjectPassenger)||img_human2Left.equals(nameOfObjectPassenger)) {
                 img_human2Left.setVisibility(View.INVISIBLE);
                 img_human2Right.setVisibility(View.VISIBLE);
+                isObjectHuman=true;
             } else if (img_human3Right.equals(nameOfObjectPassenger)||img_human3Left.equals(nameOfObjectPassenger)) {
                 img_human3Left.setVisibility(View.INVISIBLE);
                 img_human3Right.setVisibility(View.VISIBLE);
+                isObjectHuman=true;
             }
+            computingCountOfItems(isObjectHuman,false,false);
         }
         if(imgPassenger==img_passenger1Left || imgPassenger==img_passenger1Right){
             passenger1=null;
@@ -375,7 +453,7 @@ public class MainActivity extends AppCompatActivity {
                 existenceOfBoatPassengers.put(img_passenger1Left,imgInBoat);
                 passenger1=imgInBoat;
                 countOfPassengers++;
-
+                computingCountOfItems(isHuman,true,true);
             }
             else if(existenceOfBoatPassengers.get(img_passenger2Left)==null){//if boat Passengers1 is empty
                 imgInBoat.setVisibility(View.INVISIBLE);
@@ -386,7 +464,7 @@ public class MainActivity extends AppCompatActivity {
                 existenceOfBoatPassengers.put(img_passenger2Left,imgInBoat);
                 passenger2=imgInBoat;
                 countOfPassengers++;
-
+                computingCountOfItems(isHuman,true,true);
             }
             else{
                 Toast.makeText(MainActivity.this,"boat is full!!!!",Toast.LENGTH_SHORT).show();
@@ -401,7 +479,7 @@ public class MainActivity extends AppCompatActivity {
                 existenceOfBoatPassengers.put(img_passenger1Right,imgInBoat);
                 passenger1=imgInBoat;
                 countOfPassengers++;
-
+                computingCountOfItems(isHuman,true,false);
             }
             else if(existenceOfBoatPassengers.get(img_passenger2Right)==null){ //if boat Passengers2 is empty
                 imgInBoat.setVisibility(View.INVISIBLE);
@@ -412,7 +490,7 @@ public class MainActivity extends AppCompatActivity {
                 existenceOfBoatPassengers.put(img_passenger2Right,imgInBoat);
                 passenger2=imgInBoat;
                 countOfPassengers++;
-
+                computingCountOfItems(isHuman,true,false);
             }
             else{
                 Toast.makeText(MainActivity.this,"boat is full!!!!",Toast.LENGTH_SHORT).show();
@@ -420,6 +498,60 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void computingCountOfItems(boolean isHuman, boolean isGettionOnBoat, boolean isLeftDirection) {
+        if(isHuman){
+            if(isLeftDirection){
+                if(isGettionOnBoat){
+                    countOfHumansInLeft--; //human getting on boat from left direction
+                }
+                else {
+                    countOfHumansInLeft++; //human get off boat in left direction
+                }
+            }
+            else{
+                if(isGettionOnBoat){
+                    countOfHumansInRight--; //human getting on boat from right direction
+                }
+                else {
+                    countOfHumansInRight++; //human get off boat in right direction
+                }
+            }
+        }
+        else{
+            if(isLeftDirection){
+                if(isGettionOnBoat){
+                    countOfZombiesInLeft--; //zombie getting on boat from left direction
+                }
+                else {
+                    countOfZombiesInLeft++; //zombie get off boat in left direction
+                }
+            }
+            else{
+                if(isGettionOnBoat){
+                    countOfZombiesInRight--; //zombie getting on boat from right direction
+                }
+                else {
+                    countOfZombiesInRight++; //zombie get off boat in right direction
+                }
+            }
+        }
+       /* String message="countOfZombiesInLeft: "+String.valueOf(countOfZombiesInLeft)+
+                "\ncountOfZombiesInRight: "+String.valueOf(countOfZombiesInRight)+
+                "\ncountOfHumansInLeft: "+String.valueOf(countOfHumansInLeft)+
+                "\ncountOfHumansInRight: "+String.valueOf(countOfHumansInRight);
+        Toast.makeText(MainActivity.this,message,Toast.LENGTH_SHORT).show();*/
+
+        if((countOfHumansInLeft<countOfZombiesInLeft&&countOfHumansInLeft>=1) || (countOfHumansInRight<countOfZombiesInRight&&countOfHumansInRight>=1)){
+            btn_go.setVisibility(View.GONE);
+            container_gameOver.setVisibility(View.VISIBLE);
+            activeGame=false;
+        }
+        else if(countOfZombiesInLeft==0 && countOfHumansInLeft==0 && countOfZombiesInRight==3 && countOfHumansInRight==3){
+            btn_go.setVisibility(View.GONE);
+            container_gameWin.setVisibility(View.VISIBLE);
+            activeGame=false;
+        }
+    }
 
 
 }
