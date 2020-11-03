@@ -3,6 +3,8 @@ package com.example.zombies_humans;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaParser;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -31,13 +33,15 @@ public class MainActivity extends AppCompatActivity {
     int countOfZombiesInRight=0;
     int countOfPassengers=0;
     private ImageView passenger1,passenger2;
-
+    MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
+        mediaPlayer=MediaPlayer.create(MainActivity.this,R.raw.play);
+        mediaPlayer.start();
+
         img_human1Left=findViewById(R.id.img_human1Left);
         img_human2Left=findViewById(R.id.img_human2Left);
         img_human3Left=findViewById(R.id.img_human3Left);
@@ -89,10 +93,6 @@ public class MainActivity extends AppCompatActivity {
         existenceOfBoatPassengers.put(img_passenger1Right,null);
         existenceOfBoatPassengers.put(img_passenger2Right,null);
 
-       /* nameOfBoatPassengers.put(img_passenger1Left,null);
-        nameOfBoatPassengers.put(img_passenger2Left,null);
-        nameOfBoatPassengers.put(img_passenger1Right,null);
-        nameOfBoatPassengers.put(img_passenger2Right,null);*/
 
         img_human1Left.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -570,11 +570,15 @@ public class MainActivity extends AppCompatActivity {
         }*/
 
         if((countOfHumansInLeft<countOfZombiesInLeft&&countOfHumansInLeft>=1) || (countOfHumansInRight<countOfZombiesInRight&&countOfHumansInRight>=1)){
+            mediaPlayer.stop();
+            mediaPlayer=MediaPlayer.create(MainActivity.this,R.raw.loser);
             btn_go.setVisibility(View.GONE);
             container_gameOver.setVisibility(View.VISIBLE);
             activeGame=false;
         }
         else if(countOfZombiesInLeft==0 && countOfHumansInLeft==0 && countOfZombiesInRight==3 && countOfHumansInRight==3){
+            mediaPlayer.stop();
+            mediaPlayer=MediaPlayer.create(MainActivity.this,R.raw.win);
             btn_go.setVisibility(View.GONE);
             container_gameWin.setVisibility(View.VISIBLE);
             activeGame=false;
