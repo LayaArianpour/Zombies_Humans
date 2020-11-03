@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean boatInLeft=true;
     private boolean activeGame=true;
     HashMap<Object,Object> existenceOfBoatPassengers=new HashMap<>();
-    HashMap<Object,String> nameOfBoatPassengers=new HashMap<>();
+   // HashMap<Object,String> nameOfBoatPassengers=new HashMap<>();
     HashMap<Object,Boolean> passengers_IsBoarding=new HashMap<>();
     int countOfHumansInLeft=3;
     int countOfHumansInRight=0;
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        
         img_human1Left=findViewById(R.id.img_human1Left);
         img_human2Left=findViewById(R.id.img_human2Left);
         img_human3Left=findViewById(R.id.img_human3Left);
@@ -89,10 +89,10 @@ public class MainActivity extends AppCompatActivity {
         existenceOfBoatPassengers.put(img_passenger1Right,null);
         existenceOfBoatPassengers.put(img_passenger2Right,null);
 
-        nameOfBoatPassengers.put(img_passenger1Left,null);
+       /* nameOfBoatPassengers.put(img_passenger1Left,null);
         nameOfBoatPassengers.put(img_passenger2Left,null);
         nameOfBoatPassengers.put(img_passenger1Right,null);
-        nameOfBoatPassengers.put(img_passenger2Right,null);
+        nameOfBoatPassengers.put(img_passenger2Right,null);*/
 
         img_human1Left.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -325,6 +325,7 @@ public class MainActivity extends AppCompatActivity {
                 container_boatLeft.setVisibility(View.INVISIBLE);
                 container_boatRight.setVisibility(View.VISIBLE);
                 boatInLeft=false;
+                computingCountOfItems(passenger1,passenger2,true);
             }else{
                 if(passenger1!=null){
                     img_passenger1Left.setVisibility(View.VISIBLE);
@@ -347,6 +348,7 @@ public class MainActivity extends AppCompatActivity {
                 container_boatRight.setVisibility(View.INVISIBLE);
                 container_boatLeft.setVisibility(View.VISIBLE);
                 boatInLeft=true;
+                computingCountOfItems(passenger1,passenger2,false);
             }
         }else{
             Toast.makeText(MainActivity.this,"Boat is Empty!!\nplease getting on boat passenger",Toast.LENGTH_SHORT).show();
@@ -382,7 +384,7 @@ public class MainActivity extends AppCompatActivity {
                 img_human3Right.setVisibility(View.INVISIBLE);
                 isObjectHuman=true;
             }
-            computingCountOfItems(isObjectHuman,false,true);
+           // computingCountOfItems(isObjectHuman,false,true);
 
         }else{
             if (img_zombie1Right.equals(nameOfObjectPassenger)||img_zombie1Left.equals(nameOfObjectPassenger)) {
@@ -410,7 +412,7 @@ public class MainActivity extends AppCompatActivity {
                 img_human3Right.setVisibility(View.VISIBLE);
                 isObjectHuman=true;
             }
-            computingCountOfItems(isObjectHuman,false,false);
+           // computingCountOfItems(isObjectHuman,false,false);
         }
         if(imgPassenger==img_passenger1Left || imgPassenger==img_passenger1Right){
             passenger1=null;
@@ -453,7 +455,7 @@ public class MainActivity extends AppCompatActivity {
                 existenceOfBoatPassengers.put(img_passenger1Left,imgInBoat);
                 passenger1=imgInBoat;
                 countOfPassengers++;
-                computingCountOfItems(isHuman,true,true);
+               // computingCountOfItems(isHuman,true,true);
             }
             else if(existenceOfBoatPassengers.get(img_passenger2Left)==null){//if boat Passengers1 is empty
                 imgInBoat.setVisibility(View.INVISIBLE);
@@ -464,7 +466,7 @@ public class MainActivity extends AppCompatActivity {
                 existenceOfBoatPassengers.put(img_passenger2Left,imgInBoat);
                 passenger2=imgInBoat;
                 countOfPassengers++;
-                computingCountOfItems(isHuman,true,true);
+               // computingCountOfItems(isHuman,true,true);
             }
             else{
                 Toast.makeText(MainActivity.this,"boat is full!!!!",Toast.LENGTH_SHORT).show();
@@ -479,7 +481,7 @@ public class MainActivity extends AppCompatActivity {
                 existenceOfBoatPassengers.put(img_passenger1Right,imgInBoat);
                 passenger1=imgInBoat;
                 countOfPassengers++;
-                computingCountOfItems(isHuman,true,false);
+               // computingCountOfItems(isHuman,true,false);
             }
             else if(existenceOfBoatPassengers.get(img_passenger2Right)==null){ //if boat Passengers2 is empty
                 imgInBoat.setVisibility(View.INVISIBLE);
@@ -490,7 +492,7 @@ public class MainActivity extends AppCompatActivity {
                 existenceOfBoatPassengers.put(img_passenger2Right,imgInBoat);
                 passenger2=imgInBoat;
                 countOfPassengers++;
-                computingCountOfItems(isHuman,true,false);
+               // computingCountOfItems(isHuman,true,false);
             }
             else{
                 Toast.makeText(MainActivity.this,"boat is full!!!!",Toast.LENGTH_SHORT).show();
@@ -498,8 +500,39 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void computingCountOfItems(boolean isHuman, boolean isGettionOnBoat, boolean isLeftDirection) {
-        if(isHuman){
+    private void computingCountOfItems(ImageView passenger1Type,ImageView passenger2Type,boolean BoatToRight) {
+        if(BoatToRight){
+            if (img_zombie1Left.equals(passenger1Type) || img_zombie2Left.equals(passenger1Type) || img_zombie3Left.equals(passenger1Type) || img_zombie1Right.equals(passenger1Type) || img_zombie2Right.equals(passenger1Type) || img_zombie3Right.equals(passenger1Type)) {
+                countOfZombiesInLeft--;
+                countOfZombiesInRight++;
+            } else if (img_human1Left.equals(passenger1Type) || img_human2Left.equals(passenger1Type) || img_human3Left.equals(passenger1Type) || img_human1Right.equals(passenger1Type) || img_human2Right.equals(passenger1Type) || img_human3Right.equals(passenger1Type)) {
+                countOfHumansInLeft--;
+                countOfHumansInRight++;
+            }
+            if (img_zombie1Left.equals(passenger2Type) || img_zombie2Left.equals(passenger2Type) || img_zombie3Left.equals(passenger2Type) || img_zombie1Right.equals(passenger2Type) || img_zombie2Right.equals(passenger2Type) || img_zombie3Right.equals(passenger2Type)) {
+                countOfZombiesInLeft--;
+                countOfZombiesInRight++;
+            } else if (img_human1Left.equals(passenger2Type) || img_human2Left.equals(passenger2Type) || img_human3Left.equals(passenger2Type) || img_human1Right.equals(passenger2Type) || img_human2Right.equals(passenger2Type) || img_human3Right.equals(passenger2Type)) {
+                countOfHumansInLeft--;
+                countOfHumansInRight++;
+            }
+        }else {
+            if (img_zombie1Left.equals(passenger1Type) || img_zombie2Left.equals(passenger1Type) || img_zombie3Left.equals(passenger1Type) || img_zombie1Right.equals(passenger1Type) || img_zombie2Right.equals(passenger1Type) || img_zombie3Right.equals(passenger1Type)) {
+                countOfZombiesInLeft++;
+                countOfZombiesInRight--;
+            } else if (img_human1Left.equals(passenger1Type) || img_human2Left.equals(passenger1Type) || img_human3Left.equals(passenger1Type) || img_human1Right.equals(passenger1Type) || img_human2Right.equals(passenger1Type) || img_human3Right.equals(passenger1Type)) {
+                countOfHumansInLeft++;
+                countOfHumansInRight--;
+            }
+            if (img_zombie1Left.equals(passenger2Type) || img_zombie2Left.equals(passenger2Type) || img_zombie3Left.equals(passenger2Type) || img_zombie1Right.equals(passenger2Type) || img_zombie2Right.equals(passenger2Type) || img_zombie3Right.equals(passenger2Type)) {
+                countOfZombiesInLeft++;
+                countOfZombiesInRight--;
+            } else if (img_human1Left.equals(passenger2Type) || img_human2Left.equals(passenger2Type) || img_human3Left.equals(passenger2Type) || img_human1Right.equals(passenger2Type) || img_human2Right.equals(passenger2Type) || img_human3Right.equals(passenger2Type)) {
+                countOfHumansInLeft++;
+                countOfHumansInRight--;
+            }
+        }
+        /*if(isHuman){
             if(isLeftDirection){
                 if(isGettionOnBoat){
                     countOfHumansInLeft--; //human getting on boat from left direction
@@ -534,12 +567,7 @@ public class MainActivity extends AppCompatActivity {
                     countOfZombiesInRight++; //zombie get off boat in right direction
                 }
             }
-        }
-       /* String message="countOfZombiesInLeft: "+String.valueOf(countOfZombiesInLeft)+
-                "\ncountOfZombiesInRight: "+String.valueOf(countOfZombiesInRight)+
-                "\ncountOfHumansInLeft: "+String.valueOf(countOfHumansInLeft)+
-                "\ncountOfHumansInRight: "+String.valueOf(countOfHumansInRight);
-        Toast.makeText(MainActivity.this,message,Toast.LENGTH_SHORT).show();*/
+        }*/
 
         if((countOfHumansInLeft<countOfZombiesInLeft&&countOfHumansInLeft>=1) || (countOfHumansInRight<countOfZombiesInRight&&countOfHumansInRight>=1)){
             btn_go.setVisibility(View.GONE);
