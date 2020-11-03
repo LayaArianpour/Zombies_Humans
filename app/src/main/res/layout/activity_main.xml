@@ -8,6 +8,44 @@
     android:background="@drawable/n1">
 
     <RelativeLayout
+        android:id="@+id/container_timer"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/ic_background_timer"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/txt_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:textSize="30dp"
+            android:text="Timer"
+            android:layout_marginLeft="18dp"/>
+        <TextView
+            android:id="@+id/txt_space"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:textSize="35dp"
+            android:text=": "
+            android:layout_toRightOf="@id/txt_timer"
+            />
+        <TextView
+            android:id="@+id/txt_sec"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:textSize="35dp"
+            android:text="000"
+            android:layout_toRightOf="@id/txt_space"/>
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
         android:id="@+id/container_zombieLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -141,8 +179,7 @@
         android:id="@+id/container_boatLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/container_humanLeft"
-        android:layout_marginTop="200dp"
+        android:layout_toRightOf="@id/container_humanLeft"        android:layout_marginTop="200dp"
         android:visibility="visible">
         <ImageView
             android:id="@+id/img_boatLeft"
@@ -172,15 +209,14 @@
         android:id="@+id/container_boatRight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/container_boatLeft"
-        android:layout_marginLeft="80dp"
+        android:layout_marginLeft="420dp"
         android:layout_marginTop="200dp"
         android:visibility="invisible">
         <ImageView
             android:id="@+id/img_boatRight"
             android:layout_width="170dp"
             android:layout_height="100dp"
-            android:src="@drawable/b_go_right"
+            android:src="@drawable/b_go_left"
             android:layout_marginTop="60dp"/>
         <ImageView
             android:id="@+id/img_passenger1Right"
