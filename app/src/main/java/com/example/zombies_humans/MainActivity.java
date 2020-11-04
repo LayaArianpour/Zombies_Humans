@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.media.MediaParser;
 import android.media.MediaPlayer;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean boatInLeft=true;
     private boolean activeGame=true;
     private boolean startBeep=false;
+    private boolean isMoveBoat=false;
     HashMap<Object,Object> existenceOfBoatPassengers=new HashMap<>();
     HashMap<Object,Boolean> passengers_IsBoarding=new HashMap<>();
     int countOfHumansInLeft=3;
@@ -41,12 +43,14 @@ public class MainActivity extends AppCompatActivity {
     private ImageView passenger1,passenger2;
     private MediaPlayer mediaPlayer;
     private ObjectAnimator animator;
+    private int resoursSong=R.raw.play;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mediaPlayer=MediaPlayer.create(MainActivity.this,R.raw.play);
+        //mediaPlayer=MediaPlayer.create(MainActivity.this,R.raw.play);
+        mediaPlayer=MediaPlayer.create(MainActivity.this,resoursSong);
         mediaPlayer.start();
 
        /* Toast.makeText(MainActivity.this,"countOfHumansInLeft: "+String.valueOf(countOfHumansInLeft)+"\n"
@@ -118,7 +122,9 @@ public class MainActivity extends AppCompatActivity {
                     if (millisUntilFinished / 1000 < 10) {
                         if(!startBeep){
                             mediaPlayer.stop();
-                            mediaPlayer=MediaPlayer.create(MainActivity.this,R.raw.beep);
+                            //mediaPlayer=MediaPlayer.create(MainActivity.this,R.raw.beep);
+                            resoursSong=R.raw.beep;
+                            mediaPlayer=MediaPlayer.create(MainActivity.this,resoursSong);
                             mediaPlayer.start();
                             startBeep=true;
                         }
@@ -134,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
             public void onFinish() {
                 if(startBeep){
                     mediaPlayer.stop();
-                    Toast.makeText(MainActivity.this,"Time Out...",Toast.LENGTH_SHORT);
+                    Toast.makeText(MainActivity.this,"Time Out...",Toast.LENGTH_SHORT).show();
                 }
                 if(activeGame) {
                     gameOver();
@@ -145,11 +151,15 @@ public class MainActivity extends AppCompatActivity {
         img_human1Left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (activeGame) {
-                    isHuman = true;
-                    if (!passengers_IsBoarding.get(img_human1Left)) { //if human not in boat
-                        checkBeforeGettingOnBoat(img_human1Left, img_human1Right, isHuman, "human1", true);
+                if(!isMoveBoat) {
+                    if (activeGame) {
+                        isHuman = true;
+                        if (!passengers_IsBoarding.get(img_human1Left)) { //if human not in boat
+                            checkBeforeGettingOnBoat(img_human1Left, img_human1Right, isHuman, "human1", true);
+                        }
                     }
+                }else {
+                    Toast.makeText(MainActivity.this,"The boat is moving\nYou can't pick up or drop off passengers",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -157,11 +167,15 @@ public class MainActivity extends AppCompatActivity {
         img_human2Left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (activeGame) {
-                    isHuman = true;
-                    if (!passengers_IsBoarding.get(img_human2Left)) { //if human not in boat
-                        checkBeforeGettingOnBoat(img_human2Left, img_human2Right, isHuman, "human2", true);
+                if(!isMoveBoat){
+                    if (activeGame) {
+                        isHuman = true;
+                        if (!passengers_IsBoarding.get(img_human2Left)) { //if human not in boat
+                            checkBeforeGettingOnBoat(img_human2Left, img_human2Right, isHuman, "human2", true);
+                        }
                     }
+                }else {
+                    Toast.makeText(MainActivity.this,"The boat is moving\nYou can't pick up or drop off passengers",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -169,11 +183,15 @@ public class MainActivity extends AppCompatActivity {
         img_human3Left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (activeGame) {
-                    isHuman = true;
-                    if (!passengers_IsBoarding.get(img_human3Left)) { //if human not in boat
-                        checkBeforeGettingOnBoat(img_human3Left, img_human3Right, isHuman, "human3", true);
+                if(!isMoveBoat) {
+                    if (activeGame) {
+                        isHuman = true;
+                        if (!passengers_IsBoarding.get(img_human3Left)) { //if human not in boat
+                            checkBeforeGettingOnBoat(img_human3Left, img_human3Right, isHuman, "human3", true);
+                        }
                     }
+                }else {
+                    Toast.makeText(MainActivity.this,"The boat is moving\nYou can't pick up or drop off passengers",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -181,11 +199,15 @@ public class MainActivity extends AppCompatActivity {
         img_human1Right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (activeGame) {
-                    isHuman = true;
-                    if (!passengers_IsBoarding.get(img_human1Right)) { //if human not in boat
-                        checkBeforeGettingOnBoat(img_human1Right, img_human1Left, isHuman, "human1", false);
+                if(!isMoveBoat) {
+                    if (activeGame) {
+                        isHuman = true;
+                        if (!passengers_IsBoarding.get(img_human1Right)) { //if human not in boat
+                            checkBeforeGettingOnBoat(img_human1Right, img_human1Left, isHuman, "human1", false);
+                        }
                     }
+                }else {
+                    Toast.makeText(MainActivity.this,"The boat is moving\nYou can't pick up or drop off passengers",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -193,11 +215,15 @@ public class MainActivity extends AppCompatActivity {
         img_human2Right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (activeGame) {
-                    isHuman = true;
-                    if (!passengers_IsBoarding.get(img_human2Right)) { //if human not in boat
-                        checkBeforeGettingOnBoat(img_human2Right, img_human2Left, isHuman, "human2", false);
+                if(!isMoveBoat) {
+                    if (activeGame) {
+                        isHuman = true;
+                        if (!passengers_IsBoarding.get(img_human2Right)) { //if human not in boat
+                            checkBeforeGettingOnBoat(img_human2Right, img_human2Left, isHuman, "human2", false);
+                        }
                     }
+                }else {
+                    Toast.makeText(MainActivity.this,"The boat is moving\nYou can't pick up or drop off passengers",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -205,11 +231,15 @@ public class MainActivity extends AppCompatActivity {
         img_human3Right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (activeGame) {
-                    isHuman = true;
-                    if (!passengers_IsBoarding.get(img_human3Right)) { //if human not in boat
-                        checkBeforeGettingOnBoat(img_human3Right, img_human3Left, isHuman, "human3", false);
+                if(!isMoveBoat) {
+                    if (activeGame) {
+                        isHuman = true;
+                        if (!passengers_IsBoarding.get(img_human3Right)) { //if human not in boat
+                            checkBeforeGettingOnBoat(img_human3Right, img_human3Left, isHuman, "human3", false);
+                        }
                     }
+                }else {
+                    Toast.makeText(MainActivity.this,"The boat is moving\nYou can't pick up or drop off passengers",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -218,11 +248,15 @@ public class MainActivity extends AppCompatActivity {
         img_zombie1Left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (activeGame) {
-                    isHuman = false;
-                    if (!passengers_IsBoarding.get(img_zombie1Left)) { //if human not in boat
-                        checkBeforeGettingOnBoat(img_zombie1Left, img_zombie1Right, isHuman, "zombie1", true);
+                if(!isMoveBoat) {
+                    if (activeGame) {
+                        isHuman = false;
+                        if (!passengers_IsBoarding.get(img_zombie1Left)) { //if human not in boat
+                            checkBeforeGettingOnBoat(img_zombie1Left, img_zombie1Right, isHuman, "zombie1", true);
+                        }
                     }
+                }else {
+                    Toast.makeText(MainActivity.this,"The boat is moving\nYou can't pick up or drop off passengers",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -230,11 +264,15 @@ public class MainActivity extends AppCompatActivity {
         img_zombie2Left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (activeGame) {
-                    isHuman = false;
-                    if (!passengers_IsBoarding.get(img_zombie2Left)) { //if human not in boat
-                        checkBeforeGettingOnBoat(img_zombie2Left, img_zombie2Right, isHuman, "zombie2", true);
+                if(!isMoveBoat) {
+                    if (activeGame) {
+                        isHuman = false;
+                        if (!passengers_IsBoarding.get(img_zombie2Left)) { //if human not in boat
+                            checkBeforeGettingOnBoat(img_zombie2Left, img_zombie2Right, isHuman, "zombie2", true);
+                        }
                     }
+                }else {
+                    Toast.makeText(MainActivity.this,"The boat is moving\nYou can't pick up or drop off passengers",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -242,11 +280,15 @@ public class MainActivity extends AppCompatActivity {
         img_zombie3Left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (activeGame) {
-                    isHuman = false;
-                    if (!passengers_IsBoarding.get(img_zombie3Left)) { //if human not in boat
-                        checkBeforeGettingOnBoat(img_zombie3Left, img_zombie3Right, isHuman, "zombie3", true);
+                if(!isMoveBoat) {
+                    if (activeGame) {
+                        isHuman = false;
+                        if (!passengers_IsBoarding.get(img_zombie3Left)) { //if human not in boat
+                            checkBeforeGettingOnBoat(img_zombie3Left, img_zombie3Right, isHuman, "zombie3", true);
+                        }
                     }
+                }else {
+                    Toast.makeText(MainActivity.this,"The boat is moving\nYou can't pick up or drop off passengers",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -254,11 +296,15 @@ public class MainActivity extends AppCompatActivity {
         img_zombie1Right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (activeGame) {
-                    isHuman = false;
-                    if (!passengers_IsBoarding.get(img_zombie1Right)) { //if human not in boat
-                        checkBeforeGettingOnBoat(img_zombie1Right, img_zombie1Left, isHuman, "zombie1", false);
+                if(!isMoveBoat) {
+                    if (activeGame) {
+                        isHuman = false;
+                        if (!passengers_IsBoarding.get(img_zombie1Right)) { //if human not in boat
+                            checkBeforeGettingOnBoat(img_zombie1Right, img_zombie1Left, isHuman, "zombie1", false);
+                        }
                     }
+                }else {
+                    Toast.makeText(MainActivity.this,"The boat is moving\nYou can't pick up or drop off passengers",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -266,10 +312,12 @@ public class MainActivity extends AppCompatActivity {
         img_zombie2Right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (activeGame) {
-                    isHuman = false;
-                    if (!passengers_IsBoarding.get(img_zombie2Right)) { //if human not in boat
-                        checkBeforeGettingOnBoat(img_zombie2Right, img_zombie2Left, isHuman, "zombie2", false);
+                if(!isMoveBoat) {
+                    if (activeGame) {
+                        isHuman = false;
+                        if (!passengers_IsBoarding.get(img_zombie2Right)) { //if human not in boat
+                            checkBeforeGettingOnBoat(img_zombie2Right, img_zombie2Left, isHuman, "zombie2", false);
+                        }
                     }
                 }
             }
@@ -278,11 +326,15 @@ public class MainActivity extends AppCompatActivity {
         img_zombie3Right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (activeGame) {
-                    isHuman = false;
-                    if (!passengers_IsBoarding.get(img_zombie3Right)) { //if human not in boat
-                        checkBeforeGettingOnBoat(img_zombie3Right, img_zombie3Left, isHuman, "zombie3", false);
+                if(!isMoveBoat) {
+                    if (activeGame) {
+                        isHuman = false;
+                        if (!passengers_IsBoarding.get(img_zombie3Right)) { //if human not in boat
+                            checkBeforeGettingOnBoat(img_zombie3Right, img_zombie3Left, isHuman, "zombie3", false);
+                        }
                     }
+                }else {
+                    Toast.makeText(MainActivity.this,"The boat is moving\nYou can't pick up or drop off passengers",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -290,8 +342,12 @@ public class MainActivity extends AppCompatActivity {
         img_passenger1Left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (activeGame) {
-                    getOffBoat(img_passenger1Left, boatInLeft);
+                if(!isMoveBoat) {
+                    if (activeGame) {
+                        getOffBoat(img_passenger1Left, boatInLeft);
+                    }
+                }else {
+                    Toast.makeText(MainActivity.this,"The boat is moving\nYou can't pick up or drop off passengers",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -299,8 +355,12 @@ public class MainActivity extends AppCompatActivity {
         img_passenger2Left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (activeGame) {
-                    getOffBoat(img_passenger2Left, boatInLeft);
+                if(!isMoveBoat) {
+                    if (activeGame) {
+                        getOffBoat(img_passenger2Left, boatInLeft);
+                    }
+                }else {
+                    Toast.makeText(MainActivity.this,"The boat is moving\nYou can't pick up or drop off passengers",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -308,8 +368,12 @@ public class MainActivity extends AppCompatActivity {
         img_passenger1Right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (activeGame) {
-                    getOffBoat(img_passenger1Right, boatInLeft);
+                if(!isMoveBoat) {
+                    if (activeGame) {
+                        getOffBoat(img_passenger1Right, boatInLeft);
+                    }
+                }else {
+                    Toast.makeText(MainActivity.this,"The boat is moving\nYou can't pick up or drop off passengers",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -317,8 +381,12 @@ public class MainActivity extends AppCompatActivity {
         img_passenger2Right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (activeGame) {
-                    getOffBoat(img_passenger2Right, boatInLeft);
+                if(!isMoveBoat) {
+                    if (activeGame) {
+                        getOffBoat(img_passenger2Right, boatInLeft);
+                    }
+                }else {
+                    Toast.makeText(MainActivity.this,"The boat is moving\nYou can't pick up or drop off passengers",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -326,7 +394,11 @@ public class MainActivity extends AppCompatActivity {
         btn_go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                moveBoat(boatInLeft);
+                if(!isMoveBoat) {
+                    moveBoat(boatInLeft);
+                }else {
+                    Toast.makeText(MainActivity.this,"The boat is moving\nYou can't move Boat",Toast.LENGTH_SHORT).show();
+                }
             }
         });
         btn_playAgain_win.setOnClickListener(new View.OnClickListener() {
@@ -382,6 +454,7 @@ public class MainActivity extends AppCompatActivity {
                         boatInLeft=false;
                         computingCountOfItems(passenger1,passenger2,true);
                         container_boatRight.setVisibility(View.VISIBLE);
+                        isMoveBoat=false;
 
                     }
                 }.start();
@@ -416,7 +489,7 @@ public class MainActivity extends AppCompatActivity {
                         boatInLeft=true;
                         computingCountOfItems(passenger1,passenger2,false);
                         container_boatLeft.setVisibility(View.VISIBLE);
-
+                        isMoveBoat=false;
                     }
                 }.start();
             }
@@ -426,6 +499,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void animationOfMoveBoat(RelativeLayout container,float lenght,long duration) {
+        isMoveBoat=true;
         animator=ObjectAnimator.ofFloat(container,"translationX",lenght);
         animator.setDuration(duration);
         animator.start();
@@ -609,7 +683,9 @@ public class MainActivity extends AppCompatActivity {
         }
         else if(countOfZombiesInLeft==0 && countOfHumansInLeft==0 && countOfZombiesInRight==3 && countOfHumansInRight==3){
             mediaPlayer.stop();
-            mediaPlayer=MediaPlayer.create(MainActivity.this,R.raw.win);
+            //mediaPlayer=MediaPlayer.create(MainActivity.this,R.raw.win);
+            resoursSong=R.raw.win;
+            mediaPlayer=MediaPlayer.create(MainActivity.this,resoursSong);
             mediaPlayer.start();
             btn_go.setVisibility(View.GONE);
             container_gameWin.setVisibility(View.VISIBLE);
@@ -619,12 +695,25 @@ public class MainActivity extends AppCompatActivity {
 
     private void gameOver() {
         mediaPlayer.stop();
-        mediaPlayer=MediaPlayer.create(MainActivity.this,R.raw.loser);
+        //mediaPlayer=MediaPlayer.create(MainActivity.this,R.raw.loser);
+        resoursSong=R.raw.loser;
+        mediaPlayer=MediaPlayer.create(MainActivity.this,resoursSong);
         mediaPlayer.start();
         btn_go.setVisibility(View.GONE);
         container_gameOver.setVisibility(View.VISIBLE);
         activeGame=false;
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mediaPlayer.stop();
+    }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        mediaPlayer=MediaPlayer.create(MainActivity.this,resoursSong);
+        mediaPlayer.start();
+    }
 }

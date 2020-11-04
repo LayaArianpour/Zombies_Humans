@@ -30,4 +30,17 @@ public class StartActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mediaPlayer.stop();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        mediaPlayer=MediaPlayer.create(StartActivity.this,R.raw.start);
+        mediaPlayer.start();
+    }
 }
